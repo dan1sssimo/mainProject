@@ -27,10 +27,10 @@ executeGitCommand("git config --global user.name '$gitUserName'");
 executeGitCommand("git config --global user.email '$gitUserEmail'");
 
 // Start date (e.g., 1 month ago)
-$startDate = strtotime('2025-01-01');  // Change the start date if needed
+$startDate = strtotime('2023-08-01');  // Change the start date if needed
 
 // Number of commits you want to create
-$numCommits = 5;
+$numCommits = 1000;
 
 for ($i = 0; $i < $numCommits; $i++) {
     // Generate commit date (incrementing each commit by one day)
