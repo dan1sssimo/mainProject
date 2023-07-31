@@ -1,6 +1,5 @@
 <?php
 
-
 // Path to your local repository
 $repoPath = '/Applications/XAMPP/xamppfiles/htdocs/Laravel-Open-Source-Projects';  // Change this to your actual repo path
 
@@ -22,7 +21,7 @@ function executeGitCommand($command)
     return shell_exec($command);
 }
 
-// Set user credentials
+// Set user credentials for Git
 executeGitCommand("git config --global user.name '$gitUserName'");
 executeGitCommand("git config --global user.email '$gitUserEmail'");
 
@@ -32,16 +31,22 @@ $startDate = strtotime('2023-08-01');  // Change the start date if needed
 // Number of commits you want to create
 $numCommits = 1000;
 
+// Path to the file to be modified
+$filePath = "$repoPath/dummy_file.txt";
+
+// Loop to create commits
 for ($i = 0; $i < $numCommits; $i++) {
     // Generate commit date (incrementing each commit by one day)
     $commitDate = date('Y-m-d H:i:s', $startDate + ($i * 86400)); // 86400 seconds = 1 day
     $commitMessage = "Commit #$i";
 
-    // Create a dummy file with commit number as content (optional)
-    $filePath = "$repoPath/dummy_file_$i.txt";
-    createFile($filePath, "Commit #$i");
+    // Create content that changes with each commit
+    $content = "This is commit number $i. Date: " . date('Y-m-d H:i:s') . "\n";
 
-    // Add the file to Git
+    // Append the content to the file to simulate a change
+    createFile($filePath, $content);
+
+    // Add the file to Git (stage the changes)
     executeGitCommand('git add .');
 
     // Commit with the custom date
@@ -55,4 +60,4 @@ for ($i = 0; $i < $numCommits; $i++) {
 }
 
 echo "Successfully created $numCommits commits.\n";
-
+?>
