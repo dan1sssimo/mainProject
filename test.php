@@ -1,6 +1,5 @@
 <?php
 
-
 // Path to your local repository
 $repoPath = '/Applications/XAMPP/xamppfiles/htdocs/Laravel-Open-Source-Projects';  // Change this to your actual repo path
 
@@ -8,10 +7,10 @@ $repoPath = '/Applications/XAMPP/xamppfiles/htdocs/Laravel-Open-Source-Projects'
 $gitUserName = 'dan1sssimo'; // Set your Git username
 $gitUserEmail = 'danilo.savchenko96@gmail.com'; // Set your Git email
 
-// Create a new dummy file for each commit (optional)
+// Create or modify a dummy file for each commit
 function createFile($filePath, $content)
 {
-    file_put_contents($filePath, $content);
+    file_put_contents($filePath, $content); // Overwrite the file with new content
 }
 
 // Execute Git commands
@@ -22,7 +21,7 @@ function executeGitCommand($command)
     return shell_exec($command);
 }
 
-// Set user credentials
+// Set user credentials for Git
 executeGitCommand("git config --global user.name '$gitUserName'");
 executeGitCommand("git config --global user.email '$gitUserEmail'");
 
@@ -32,16 +31,18 @@ $startDate = strtotime('2023-08-01');  // Change the start date if needed
 // Number of commits you want to create
 $numCommits = 1000;
 
+$filePath = "$repoPath/dummy_file.txt";  // We'll modify this file for each commit
+
 for ($i = 0; $i < $numCommits; $i++) {
     // Generate commit date (incrementing each commit by one day)
     $commitDate = date('Y-m-d H:i:s', $startDate + ($i * 86400)); // 86400 seconds = 1 day
     $commitMessage = "Commit #$i";
 
-    // Create a dummy file with commit number as content (optional)
-    $filePath = "$repoPath/dummy_file_$i.txt";
-    createFile($filePath, "Commit #$i");
+    // Modify the file content for each commit
+    $content = "This is commit number $i. The current date is " . date('Y-m-d H:i:s') . "\n";
+    createFile($filePath, $content);  // Overwrite the file with the new content
 
-    // Add the file to Git
+    // Add the modified file to Git
     executeGitCommand('git add .');
 
     // Commit with the custom date
@@ -55,4 +56,4 @@ for ($i = 0; $i < $numCommits; $i++) {
 }
 
 echo "Successfully created $numCommits commits.\n";
-
+?>
