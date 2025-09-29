@@ -31,18 +31,13 @@ $startDate = strtotime('2025-01-01');  // Change the start date if needed
 // Number of commits you want to create
 $numCommits = 1000;
 
-$filePath = "$repoPath/dummy_file.txt";  // We'll modify this file for each commit
 
 for ($i = 0; $i < $numCommits; $i++) {
     // Generate commit date (incrementing each commit by one day)
     $commitDate = date('Y-m-d H:i:s', $startDate + ($i * 86400)); // 86400 seconds = 1 day
     $commitMessage = "Commit #$i";
 
-    // Modify the file content for each commit
-    $content = "This is commit number $i. The current date is " . date('Y-m-d H:i:s') . "\n";
-    createFile($filePath, $content);  // Overwrite the file with the new content
 
-    // Add the modified file to Git
     executeGitCommand('git add .');
 
     // Commit with the custom date
